@@ -32,6 +32,10 @@
             $("#register").on("click", function(){
                 signUp();
             });
+            
+            $("#stay").on("click", function(){
+                stayOn();
+            })
 
         });
 
@@ -42,7 +46,8 @@
 
             valid_login = false;
 
-            if(valid_login){
+            $.afui.loadContent("#main", null, null, "fade");
+            /*if(valid_login){
                 $.afui.loadContent("#main", null, null, "fade");
             }
             else
@@ -56,7 +61,7 @@
                     type:"error"
                 };
                 $.afui.toast(opts);
-            }
+            }*/
         }
 
         function signUp(){
@@ -95,6 +100,34 @@
 
 
         }
+        
+        function showLocation(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            console.log("Latitude : " + latitude + " Longitude: " + longitude);
+         }
+
+         function errorHandler(err) {
+            if(err.code == 1) {
+               console.log("Error: Access is denied!");
+            }
+            
+            else if( err.code == 2) {
+               console.log("Error: Position is unavailable!");
+            }
+         }
+        
+        function stayOn(){
+            if(navigator.geolocation){
+               // timeout at 60000 milliseconds (60 seconds)
+               var options = {timeout:60000};
+               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+            }
+            
+            else{
+               console.log("Sorry, browser does not support geolocation!");
+            }  
+        }
 
         function startApp(){
             // clears all back button history
@@ -110,26 +143,25 @@
 <body>
 
     <div id="splashscreen" class='ui-loader heavy'>
-        App Framework - Login View
         <br>
         <br>
         <span class='ui-icon ui-icon-loading spin'></span>
-        <h1>Starting app</h1>
+        <h1>activApp</h1>
     </div>
 
     <div class="view" id="mainview">
         <header>
-            <h1>Login View Example</h1>
+            <h1>activApp</h1>
         </header>
 
         <div class="pages">
 
             <!-- Welcome View -->
-            <div class="panel" data-title="Welcome" id="page1" data-header="none" data-footer="none" selected="true">
+            <div class="panel" data-title="activApp" id="page1" data-header="none" data-footer="none" selected="true">
                 <div style="text-align:center">
                     <br>
                     <br>
-                    <p>This is space for welcome message</p>
+                    <p></p>
                     <br>
                     <br>
                 </div>
@@ -144,7 +176,7 @@
                 <div style="text-align:center">
                     <br>
                     <br>
-                    <p>This is space for login message</p>
+                    <p></p>
                     <br>
                     <br>
                 </div>
@@ -158,7 +190,7 @@
                 <div style="text-align:center">
                     <br>
                     <br>
-                    <p>This is space for register message</p>
+                    <p></p>
                     <br>
                     <br>
                 </div>
@@ -171,8 +203,13 @@
             </div>
 
             <!-- Main App View -->
-            <div class="panel" data-title="Start" id="main">
-                <p>This is App page after user has signed in...</p>
+            <div class="panel" data-title="activApp" id="main">
+                <br>
+                <br>
+                <a class="button block" href="#" id="stay">Estoy aca!</a>
+                <br>
+                <br>
+                <div class="panel" id="map"></div>
             </div>
         </div>
     </div>
