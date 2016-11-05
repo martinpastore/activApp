@@ -38,9 +38,7 @@
                 
             });
             
-            $("#stay").on("click", function(){
-                stayOn();
-            });
+            stayOn();
 
         });
 
@@ -118,7 +116,7 @@
 
               var mapcanvas = document.createElement('div');
               mapcanvas.id = 'mapcanvas';
-              mapcanvas.style.height = '200px';
+              mapcanvas.style.height = '1024px';
               mapcanvas.style.width = '100%';
 
               document.querySelector('article').appendChild(mapcanvas);
@@ -229,20 +227,6 @@
 
             <!-- Main App View -->
             <div class="panel" data-title="activApp" id="main">
-                <br>
-                <br>
-                <a class="button block" href="#" id="public">Publicar lugar</a>
-                <br>
-                <br>
-            </div>
-            
-            <!-- Publish App View -->
-            <div>
-            <br>
-                <br>
-                <a class="button block" href="#" id="stay">Donde estoy?</a>
-                <br>
-                <br>
                 <article>
                 </article>
             </div>
