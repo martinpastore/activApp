@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>Login View Template</title>
+    <title>activApp</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -15,6 +15,7 @@
 
     <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>
         
     <script src='cordova.js'></script>
@@ -33,9 +34,13 @@
                 signUp();
             });
             
+            $("#public").on("click", function(){
+                
+            });
+            
             $("#stay").on("click", function(){
                 stayOn();
-            })
+            });
 
         });
 
@@ -101,32 +106,52 @@
 
         }
         
-        function showLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            console.log("Latitude : " + latitude + " Longitude: " + longitude);
-         }
+        function success(position) {
+          //var s = document.querySelector('#status');
 
-         function errorHandler(err) {
-            if(err.code == 1) {
-               console.log("Error: Access is denied!");
+          //if (s.className == 'success') {
+          //  return;
+          //}
+
+          //s.innerHTML = "found you!";
+          //s.className = 'success';
+
+              var mapcanvas = document.createElement('div');
+              mapcanvas.id = 'mapcanvas';
+              mapcanvas.style.height = '200px';
+              mapcanvas.style.width = '100%';
+
+              document.querySelector('article').appendChild(mapcanvas);
+
+              var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+              var myOptions = {
+                zoom: 15,
+                center: latlng,
+                mapTypeControl: false,
+                navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+
+              var marker = new google.maps.Marker({
+                  position: latlng, 
+                  map: map, 
+                  title:"Aquí"
+              });
             }
-            
-            else if( err.code == 2) {
-               console.log("Error: Position is unavailable!");
+
+            function error(msg) {
+              var s = document.querySelector('#status');
+              s.innerHTML = typeof msg == 'string' ? msg : "failed";
+              s.className = 'fail';
             }
-         }
         
         function stayOn(){
-            if(navigator.geolocation){
-               // timeout at 60000 milliseconds (60 seconds)
-               var options = {timeout:60000};
-               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+              error('No soportado');
             }
-            
-            else{
-               console.log("Sorry, browser does not support geolocation!");
-            }  
         }
 
         function startApp(){
@@ -206,10 +231,20 @@
             <div class="panel" data-title="activApp" id="main">
                 <br>
                 <br>
-                <a class="button block" href="#" id="stay">Estoy aca!</a>
+                <a class="button block" href="#" id="public">Publicar lugar</a>
                 <br>
                 <br>
-                <div class="panel" id="map"></div>
+            </div>
+            
+            <!-- Publish App View -->
+            <div>
+            <br>
+                <br>
+                <a class="button block" href="#" id="stay">Donde estoy?</a>
+                <br>
+                <br>
+                <article>
+                </article>
             </div>
         </div>
     </div>
