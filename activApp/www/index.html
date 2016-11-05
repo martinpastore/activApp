@@ -34,10 +34,6 @@
                 signUp();
             });
             
-            $("#public").on("click", function(){
-                
-            });
-            
             stayOn();
 
         });
@@ -104,13 +100,14 @@
 
         }
         
-        function addMarker(location, map, title) {
+        /*function addMarker(location, map, title) {
             var marker = new google.maps.Marker({
                 position: location,
+                clickeable: true,
                 map: map,
                 title: title
               });
-        }
+        }*/
         
         function success(position) {
               var mapcanvas = document.createElement('div');
@@ -131,13 +128,22 @@
               };
               var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
 
-              new google.maps.Marker({
+              var marker = new google.maps.Marker({
                   position: latlng, 
                   map: map, 
                   title:"Aquí"
               });   
             
-              addMarker(new google.maps.LatLng(-31.4199, -64.1883), map, "Fundación APADEA");    
+            var marker2 = new google.maps.Marker({
+                  position: new google.maps.LatLng(-31.4199, -64.1883), 
+                  map: map, 
+                  title:"Fundación APADEA"
+            });
+            
+            google.maps.event.addDomListener(marker2, 'click', function(evt) {
+                $.afui.loadContent("#info", null, null, "fade"); //cambiar #info por el nombre de la vista con la info :3
+            });
+            
             }
 
             function error(msg) {
@@ -229,6 +235,9 @@
             <div class="panel" data-title="activApp" id="main">
                 <article>
                 </article>
+            </div>
+            <div class="panel" data-title="activApp" id="info">
+                <p>Info View</p>
             </div>
         </div>
     </div>
