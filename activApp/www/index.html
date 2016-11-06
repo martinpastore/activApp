@@ -21,7 +21,7 @@
     <script src='cordova.js'></script>
 
     <script>
-
+        var maps;
         $(document).ready(function(){
 
             $("#main").bind("panelbeforeload", startApp);
@@ -35,11 +35,11 @@
             });
             
             $("#like").on("click", function(){
-                $("#votos").text("1");
+                valorate();
             });
             
-            $("#no-like").on("click", function(){
-                $("#votos").text("0");
+            $("#cargar").on("click", function(){
+                newMarker();
             });
             
 
@@ -116,10 +116,14 @@
               });
         }*/
         
+        function valorate(){
+            $.afui.loadContent("#valor", null, null, "fade");
+        }
+        
         function success(position) {
               var mapcanvas = document.createElement('div');
               mapcanvas.id = 'mapcanvas';
-              mapcanvas.style.height = '720px';
+              mapcanvas.style.height = '500px';
               mapcanvas.style.width = '100%';
 
               document.querySelector('article').appendChild(mapcanvas);
@@ -134,7 +138,9 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
               };
               var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
-
+                
+              maps = map;  
+            
               var marker = new google.maps.Marker({
                   position: latlng, 
                   map: map, 
@@ -150,8 +156,7 @@
             google.maps.event.addDomListener(marker2, 'click', function(evt) {
                 $.afui.loadContent("#info", null, null, "fade"); //cambiar #info por el nombre de la vista con la info :3
             });
-            
-            
+                        
             var marker3 = new google.maps.Marker({
                   position: new google.maps.LatLng(-31.418913, -64.182771), 
                   map: map, 
@@ -162,6 +167,19 @@
                 $.afui.loadContent("#info2", null, null, "fade"); //cambiar #info por el nombre de la vista con la info :3
             });
             }
+        
+        function newMarker(){
+            console.log(maps);
+            var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(-31.427306,-64.1850752), 
+                  map: maps, 
+                  title:"Nuevo Lugar"
+              }); 
+            
+            google.maps.event.addDomListener(marker, 'click', function(evt) {
+                $.afui.loadContent("#info3", null, null, "fade"); //cambiar #info por el nombre de la vista con la info :3
+            });
+        }
 
             function error(msg) {
               var s = document.querySelector('#status');
@@ -188,7 +206,7 @@
 
 </head>
 
-<body>
+<body style="background-color: white;">
 
     <div id="splashscreen" class='ui-loader heavy'>
         <br>
@@ -214,7 +232,7 @@
                     <br>
                 </div>
                 <ul class="list inset">
-                    <li><a href="#signin" class="icon user" style="text-align:center">Login</a></li>
+                    <li><a href="#signin" class="icon user" style="text-align:center">Iniciar sesión</a></li>
                     <!--<li><a href="#signup" class="icon pencil" style="text-align:center">Register</a></li>-->
                 </ul>
             </div>
@@ -228,9 +246,9 @@
                     <br>
                     <br>
                 </div>
-                <a class="button block" href="#" id="login" onclick="stayOn();">Login with Facebook</a>
-                <a class="button block" href="#upload" id="btnUpload">Upload Site</a>
+                <a class="button block" href="#" id="login" onclick="stayOn();">Iniciar sesión con Facebook</a>
             </div>
+
 
             <!-- Upload image View -->
             <div class="panel" data-title="activApp" id="upload">
@@ -238,13 +256,14 @@
                     <br/>
                     <input type="file" accept="image/*">
                     <br/>
+                    <input type="text" placeholder="Nombre del lugar">
                     <br/>
-                    <textarea name="inputComments" placeholder="Comments" id="inputComments" cols="40" rows="5" style="font-family: Arial, Helvetica, sans-serif;"></textarea>
+                    <textarea name="inputComments" placeholder="Comentarios" id="inputComments" cols="40" rows="5" style="font-family: Arial, Helvetica, sans-serif;"></textarea>
                     <br/>
                     <br/>
+                    <a id="cargar" class="button block" href="#main">Cargar</a>
                     <input type="checkbox" name="shareFacebook" id="shareFacebook" value="shareFacebook" checked style="top:10px;">
-                    <label for="shareFacebook" style="top:-3px;"> Share on Facebook?</label>
-                    <input type="submit" style="padding: 8px 30px;">
+                    <label for="shareFacebook" style="top:-3px;"> Compartir en Facebook?</label>
                 </form>
             </div>
             
@@ -267,38 +286,56 @@
 
             <!-- Main App View -->
             <div class="panel" data-title="activApp" id="main">
+                <a class="button block" href="#upload" id="btnUpload">Cargar lugar</a>
                 <article>
                 </article>
             </div>
             <div class="panel" data-title="activApp" id="info">
-                <img src="img/apadea.jpeg" style="width:100%;height: 400px;">
+                <img src="img/apadea.jpeg" style="width:100%;height: 200px;">
                 <br>
                 <br>
                 <br>
-                <span style="font-size: 32px;">Fundación APADEA: </span><span id="votos" style="font-size: 32px;">0</span> 
+                <span style="font-size: 32px;">Fundación APADEA </span>
                 <hr>
                 <br>
                 <br>
                 <h3>Asociación Argentina de Padres de Autistas</h3>
                 <div>
-                    <button id="like" style="color: green;border-radius:70%;width:100px;height:100px;font-size:60px;margin-left:17%;margin-top:13%;">♥</button>
-                    <button id="no-like" style="color: red;border-radius:70%;width:100px;height:100px;font-size:60px;margin-left:17%;margin-top:13%;">X</button>
+                    <button id="like" style="color: green;border-radius:70%;width:100px;height:100px;font-size:60px;margin-left:38%;margin-top:30%;">♥</button>
                 </div>
             </div>
             <div class="panel" data-title="activApp" id="info2">
-                <img src="img/gimnasio.jpg" style="width:100%;height: 400px;">
+                <img src="img/gimnasio.jpg" style="width:100%;height: 200px;">
                 <br>
                 <br>
                 <br>
-                <span style="font-size: 32px;">Gimnasio adaptado: </span><span id="votos" style="font-size: 32px;">0</span> 
+                <span style="font-size: 32px;">Gimnasio adaptado </span>
                 <hr>
                 <br>
                 <br>
                 <h3>Gimnasio con turnos prefijados</h3>
                 <div>
-                    <button id="like" style="color: green;border-radius:70%;width:100px;height:100px;font-size:60px;margin-left:17%;margin-top:13%;">♥</button>
-                    <button id="no-like" style="color: red;border-radius:70%;width:100px;height:100px;font-size:60px;margin-left:17%;margin-top:13%;">X</button>
+                    <button id="like" style="color: green;border-radius:70%;width:100px;height:100px;font-size:60px;margin-left:38%;margin-top:30%;">♥</button>
                 </div>
+            </div>
+            <div class="panel" data-title="activApp" id="info3">
+                <img src="img/gimnasio.jpg" style="width:100%;height: 200px;">
+                <br>
+                <br>
+                <br>
+                <span style="font-size: 32px;">Nuevo Lugar </span> 
+                <hr>
+                <br>
+                <br>
+                <h3></h3>
+                <div>
+                    <button id="like" style="color: green;border-radius:70%;width:100px;height:100px;font-size:60px;margin-left:38%;margin-top:30%;">♥</button>
+                </div>
+            </div>
+            <div class="panel" data-title="activApp" id="valor">
+                <p>Frase 1</p>
+                <hr>
+                <button></button>
             </div>
         </div>
     </div>
