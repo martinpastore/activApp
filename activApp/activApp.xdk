@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-login-view-js/sample.zip",
       "projectGuid": "52384f50-785d-4c85-8a8a-cd31b37f3144",
-      "lastModifiedDate": 1478435325917,
+      "lastModifiedDate": 1478447656409,
       "creationDate": 1478361433545
     },
     "sourceDirectory": "www",
@@ -97,7 +97,7 @@
           "android-signed": true
         },
         "isActive_": true,
-        "certificateId_": "KSiM4wfgU0S4bRaFZ2mo1g2",
+        "certificateId_": "0oOkZwx-I0q9Cb03mI2oRw2",
         "appName_": "activApp",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -135,7 +135,7 @@
           "ios-configuration": "adhoc",
           "deployment-target": "8.0"
         },
-        "isActive_": true,
+        "isActive_": false,
         "certificateId_": "",
         "appName_": "activApp",
         "appID_": "not.yet.specified",
@@ -172,7 +172,7 @@
         "runtime_": "Cordova 3.x",
         "name_": "Windows8",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "certificateId_": "",
         "appName_": "activApp",
         "appID_": "not.yet.specified",
