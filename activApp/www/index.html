@@ -8,7 +8,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
     <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
@@ -42,7 +42,6 @@
                 $("#votos").text("0");
             });
             
-            stayOn();
 
         });
 
@@ -219,9 +218,26 @@
                     <br>
                     <br>
                 </div>
-                <a class="button block" href="#" id="login">Login with Facebook</a>
+                <a class="button block" href="#" id="login" onclick="stayOn()">Login with Facebook</a>
+                <a class="button block" href="#upload" id="btnUpload">Upload Site</a>
             </div>
 
+            <!-- Upload image View -->
+            <div class="panel" data-title="activApp" id="upload">
+                <form action="#signin">
+                    <br/>
+                    <input id="file" type="file" accept="image/*">
+                    <br/>
+                    <br/>
+                    <textarea name="inputComments" placeholder="Comments" id="inputComments" cols="40" rows="5" style="font-family: Arial, Helvetica, sans-serif;"></textarea>
+                    <br/>
+                    <br/>
+                    <input type="checkbox" name="shareFacebook" id="shareFacebook" value="shareFacebook" checked style="top:10px;">
+                    <label for="shareFacebook" style="top:-3px;"> Share on Facebook?</label>
+                    <input type="submit" style="padding: 8px 30px;">
+                </form>
+            </div>
+            
             <!-- Register View -->
             <div class="panel" data-title="Register" id="signup" data-footer="none">
                 <div style="text-align:center">
