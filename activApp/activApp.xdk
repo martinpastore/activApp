@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-login-view-js/sample.zip",
       "projectGuid": "52384f50-785d-4c85-8a8a-cd31b37f3144",
-      "lastModifiedDate": 1478447656409,
+      "lastModifiedDate": 1478453320649,
       "creationDate": 1478361433545
     },
     "sourceDirectory": "www",
@@ -82,6 +82,25 @@
         "name": "Splashscreen",
         "description": "Cordova Splashscreen Plugin",
         "checksum": "47137083"
+      },
+      {
+        "id": "cordova-plugin-compat",
+        "name": "Compat",
+        "version": "1.0.0",
+        "originType": "cordova.io",
+        "origin": "cordova-plugin-compat",
+        "gitref": "",
+        "paramvals": {},
+        "sourceLocation": "plugins/cordova-plugin-compat",
+        "selectedState": "Included",
+        "checksum": "61c62eb",
+        "dependsOn": [],
+        "topLevel": false,
+        "permissions": {},
+        "description": "Cordova Compatibility Plugin",
+        "data": {},
+        "dependedBy": [],
+        "custom": "true"
       }
     ],
     "serviceMethods": [],
@@ -94,7 +113,9 @@
           "android-minSdkVersion": "14",
           "android-targetSdkVersion": "21",
           "android-installLocation": "auto",
-          "android-signed": true
+          "android-signed": true,
+          "Fullscreen": true,
+          "Orientation": "portrait"
         },
         "isActive_": true,
         "certificateId_": "0oOkZwx-I0q9Cb03mI2oRw2",
